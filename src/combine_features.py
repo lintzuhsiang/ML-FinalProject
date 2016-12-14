@@ -1,6 +1,6 @@
 # For NTU 2016 Fall Machine Learning Class
 # Final Project: OutBrain Click Prediction
-# Usage: combine_features.py ../data/ ../workspace/ --mode both
+# Usage: combine_features.py ../data/ ../workspace/ --mode both --max 
 # Note: pass [--mode train] or [--mode test] to do on train/test data only, default is both
 
 import argparse
@@ -13,7 +13,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument( "dataDirectory", help='directory that contains training/test data' )
 parser.add_argument( "workingDirectory", help='directory that contains working data' )
 parser.add_argument( "--mode", help='execute on train data, test data or both', default='both', \
-												choices=['both', 'train', 'test'] )
+												choices=['both', 'train', 'test'] 
+parser.add_argument( "--max", help='maximum number of lines to read' )
 parser.add_argument( "--printInfo", help='true to print info', default=False )
 args = parser.parse_args()
 
@@ -30,13 +31,13 @@ for data_set in DataSet:
 	if( data_set=='train' )	
 		if( args.printInfo ):
 			print "Extract_features.py: reading input data - clicks_train.csv"
-		data = pd.read_csv( args.dataDirectory + 'clicks_train.csv', delimiter=',', \
+		data = pd.read_csv( args.dataDirectory + 'clicks_train.csv', delimiter=',', nrows=args.max, \
 													dtype={'display_id':np.int32, 'ad_id':np.int32, 'clicked':bool})
 
 	if( data_set=='test' )
 		if( args.printInfo ):
 			print "Extract_features.py: reading input data - clicks_test.csv"
-		data = pd.read_csv( args.dataDirectory + 'clicks_test.csv', delimiter=',', \
+		data = pd.read_csv( args.dataDirectory + 'clicks_test.csv', delimiter=',', nrows=args.max, \
 													dtype={'display_id':np.int32, 'ad_id':np.int32})													
 
 	""" concatenate events features into train/test data """
@@ -142,9 +143,10 @@ for data_set in DataSet:
 	""" write data to a csv file """
 	if( args.printInfo ):
 		print "Extract_features.py: writing output to a csv file"
-	# column_names = "display_id, uuid, document_id, timestamp, platform, campaign_id, advertiser_id, source_id, publisher_id, publish_time"
-	# np.savetxt( args.outputFile, output_to_file, delimiter=',', header=column_names, comments='', fmt='%i' )
 	data.to_csv( args.workingDirectory + data_set + '_combined_features_reduced.csv', sep=',' )
-
-	data_reduced = data.iloc[:, [3,6,7,8,9,11,12,13,14]]
+	
+	if( data_set=='train')
+		data_reduced = data.iloc[:, [3,6,7,8,9,11,12,13,14]]
+	else # data_set=='test'
+		data_reduced = data.iloc[:, [3,6,7,8,9,11,12,13,14]]
 	data_reduced.to_csv( args.workingDirectory + data_set + '_combined_features_reduced.csv', sep=',' )
