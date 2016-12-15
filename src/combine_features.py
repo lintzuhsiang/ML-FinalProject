@@ -143,10 +143,10 @@ for data_set in DataSet:
 	""" write data to a csv file """
 	if( args.printInfo ):
 		print("Extract_features.py: writing output to a csv file")
-	data.to_csv( args.workingDirectory + data_set + '_combined_features_reduced.csv', sep=',' )
-	
-	if( data_set=='train'):
-		data_reduced = data.iloc[:, [3,6,7,8,9,11,12,13,14]]
-	else: # data_set=='test'
-		data_reduced = data.iloc[:, [2,5,6,7,8,10,11,12,13]]
-	data_reduced.to_csv( args.workingDirectory + data_set + '_combined_features_reduced.csv', sep=',' )
+	data.to_csv( args.workingDirectory + data_set + '_combined_features.csv', sep=',' )
+
+	#if( data_set=='train'):
+	#	data_reduced = data.iloc[:, [3,6,7,8,9,11,12,13,14]]
+	#else: # data_set=='test'
+	#	data_reduced = data.iloc[:, [2,5,6,7,8,10,11,12,13]]
+	#data_reduced.to_csv( args.workingDirectory + data_set + '_combined_features_reduced.csv', sep=',' )
