@@ -87,13 +87,13 @@ train_labels_expand = pd.get_dummies( train_labels['labels'], prefix='labels', s
 print('Training Model')
 model = Sequential()
 model.add( Dense( train_data_expand.shape[1], input_dim=train_data_expand.shape[1], init='normal', activation='relu' ) )
-model.add( Dense( 500, init='normal', activation='relu' ) )
+model.add( Dense( 500, init='normal', activation='sigmoid' ) )
 model.add(Dropout(0.5))
-model.add( Dense( 800, init='normal', activation='relu' ) )
+model.add( Dense( 800, init='normal', activation='sigmoid' ) )
 model.add(Dropout(0.5))
 model.add( Dense( 250, init='normal', activation='relu' ) )
 model.add(Dropout(0.5))
-model.add( Dense( 100, init='normal', activation='relu' ) )
+model.add( Dense( 100, init='normal', activation='sigmoid' ) )
 model.add(Dropout(0.5))
 model.add( Dense( train_labels_expand.shape[1], init='normal', activation='sigmoid' ) )
 model.compile( loss='binary_crossentropy', optimizer='adam',  metrics=['accuracy'] )
@@ -111,7 +111,7 @@ shuffled_Y = train_labels_expand.as_matrix()[shuffled_index].reshape(train_label
 #shuffled_X_Y = np.random.shuffle( shuffled_X_Y )
 
 
-validation_split = 0.25
+validation_split = 0.3
 validation_cut_point = (1-validation_split)*shuffled_X.shape[0]
 val_X = shuffled_X[validation_cut_point:]
 val_Y = shuffled_Y[validation_cut_point:]
@@ -119,7 +119,7 @@ shuffled_X = shuffled_X[:validation_cut_point]
 shuffled_Y = shuffled_Y[:validation_cut_point]
 
 checkpoint = ModelCheckpoint('mymodel.h5', monitor='val_loss', save_best_only=True, mode='auto')
-model.fit(shuffled_X, shuffled_Y, nb_epoch=60, batch_size=5000, validation_data=(val_X, val_Y), callbacks=[checkpoint] )
+model.fit(shuffled_X, shuffled_Y, nb_epoch=20, batch_size=5000, validation_data=(val_X, val_Y), callbacks=[checkpoint] )
 
 """
 model.load( 'mymodel.h5' )
