@@ -16,10 +16,10 @@ Based on DARPA’98 IDS evaluation program
 
 Four types of attack
 --------------------
-• DOS: denial-of-service
-• R2L: unauthorized access from a remote machine
-• U2R: unauthorized access to local superuser (root) privileges
-• probing: surveillance and other probing
+* DOS: denial-of-service
+* R2L: unauthorized access from a remote machine
+* U2R: unauthorized access to local superuser (root) privileges
+* probing: surveillance and other probing
 
 
 Model
