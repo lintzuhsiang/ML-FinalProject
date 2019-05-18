@@ -1,7 +1,4 @@
-# ML-FinalProject
-
-Cyber Security Attack Defender
-==============================
+# ML-FinalProject: Cyber Security Attack Defender
 
 Team Work
 ==============================
