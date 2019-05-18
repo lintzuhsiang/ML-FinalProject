@@ -2,7 +2,6 @@
 
 Team Work
 ==============================
-分工:
   * 林子翔:進階 model 的設計 (second baseline)、deep learning layer 與 node 的測試及討論。
   * 董皓文:資料的前處理、特徵值的取出與轉換 (feature engineering)、初 始的 model 設計 (first baseline)。
   * 謝秉翰:初始 model 設計的改良、random forest 跟 support vector machine 的討論。
